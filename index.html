@@ -30,37 +30,86 @@
             </div>
             <input type="text" placeholder="Search mail">
             <div class="filter-icon" id="filterButton">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path
+                        d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z">
+                    </path>
+                </svg>
             </div>
-            
+
         </div>
         <div class="header-icons">
             <div class="active-status">
-                <span >Active</span>
-                <img class="header-icons-img" style="height: 15px; width: 15px;" src="https://www.gstatic.com/images/icons/material/system/1x/expand_more_black_20dp.png" alt="More" class="arrow-icon">
+                <span>Active</span>
+                <img class="header-icons-img" style="height: 15px; width: 15px;"
+                    src="https://www.gstatic.com/images/icons/material/system/1x/expand_more_black_20dp.png" alt="More"
+                    class="arrow-icon">
             </div>
-            <img class="header-icons-img" src="https://www.gstatic.com/images/icons/material/system/1x/help_outline_black_20dp.png" alt="Help">
-            <img class="header-icons-img" src="https://www.gstatic.com/images/icons/material/system/1x/settings_black_20dp.png" alt="Settings">
-            <img class="header-icons-img" src="https://www.gstatic.com/images/icons/material/system/1x/apps_black_20dp.png" alt="Apps">
+            <img class="header-icons-img"
+                src="https://www.gstatic.com/images/icons/material/system/1x/help_outline_black_20dp.png" alt="Help">
+            <img class="header-icons-img"
+                src="https://www.gstatic.com/images/icons/material/system/1x/settings_black_20dp.png" alt="Settings">
+            <img class="header-icons-img"
+                src="https://www.gstatic.com/images/icons/material/system/1x/apps_black_20dp.png" alt="Apps">
             <div class="google-profile-container">
-                <img src="https://www.google.com/u/0/ac/images/logo.gif?uid=106907578876361283737&service=google_gsuite" alt="Google" class="google-logo">
-    <div class="profile-img">
-        <img src="https://lh3.googleusercontent.com/a/default-user=s32" alt="Profile">
-    </div>
+                <img src="https://www.google.com/u/0/ac/images/logo.gif?uid=106907578876361283737&service=google_gsuite"
+                    alt="Google" class="google-logo">
+                <div class="profile-img">
+                    <img src="https://lh3.googleusercontent.com/a/default-user=s32" alt="Profile">
+                </div>
             </div>
         </div>
     </header>
     <!-- Add this right after the header -->
     <div class="mini-sidebar">
-        <div class="mini-nav-item active">
+        <div style="padding-top: 10px;" class="mini-nav-item active">
             <img src="https://www.gstatic.com/images/icons/material/system/1x/mail_outline_black_20dp.png" alt="Mail">
             <span>Mail</span>
             <span class="mini-count">15</span>
         </div>
-        <div class="mini-nav-item">
-            <img src="https://www.gstatic.com/images/icons/material/system/1x/chat_bubble_outline_black_20dp.png"
+        
+        <div class="chat-container">
+            <div class="mini-nav-item chat-icon">
+                <img src="https://www.gstatic.com/images/icons/material/system/1x/chat_bubble_outline_black_20dp.png"
                 alt="Chat">
             <span>Chat</span>
+            </div>
+            <div class="chat-sidebar">
+                <div class="new-chat">
+                    <img src="path-to-chat-icon.png" alt="New chat">
+                    <span>New chat</span>
+                </div>
+                <div class="chat-section">
+                    <div class="section-header">Shortcuts</div>
+                    <div class="chat-item">
+                        <img src="path-to-home-icon.png" alt="Home">
+                        <span>Home</span>
+                    </div>
+                    <div class="chat-item">
+                        <img src="path-to-mentions-icon.png" alt="Mentions">
+                        <span>Mentions</span>
+                    </div>
+                    <div class="chat-item">
+                        <img src="path-to-starred-icon.png" alt="Starred">
+                        <span>Starred</span>
+                    </div>
+                </div>
+                <div class="chat-section">
+                    <div class="section-header">Direct messages</div>
+                    <div class="chat-item">
+                        <img src="path-to-gdrive-icon.png" alt="Google Drive">
+                        <span>Google Drive</span>
+                        <span class="app-label">App</span>
+                    </div>
+                </div>
+                <div class="chat-section">
+                    <div class="section-header">Spaces</div>
+                    <div class="spaces-message">
+                        <p>Create a space to chat and collaborate</p>
+                        <a href="#" class="create-space-link">Create or find a space</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="mini-nav-item">
             <img src="https://www.gstatic.com/images/icons/material/system/1x/videocam_black_20dp.png" alt="Meet">
@@ -71,7 +120,8 @@
     <div class="container">
         <div class="sidebar" id="sidebar">
             <div class="compose-btn">
-                <img src="https://www.gstatic.com/images/icons/material/system/1x/create_black_20dp.png" alt="Compose">
+                <img src="https://www.gstatic.com/images/icons/material/system_gm/1x/create_black_24dp.png"
+                    alt="Compose">
                 <span class="compose-text">Compose</span>
                 <span class="sidebar-collapsed-text">+</span>
             </div>
@@ -105,44 +155,54 @@
                 </div>
                 <div class="more-section">
                     <div class="sidebar-item" id="more-toggle">
-                        <img src="https://www.gstatic.com/images/icons/material/system/1x/expand_more_black_20dp.png" alt="More" class="arrow-icon">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/expand_more_black_20dp.png"
+                            alt="More" class="arrow-icon">
                         <span class="sidebar-item-text">More</span>
                     </div>
                     <div class="more-dropdown" id="more-dropdown">
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/label_important_black_20dp.png" alt="Important">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/label_important_black_20dp.png"
+                                alt="Important">
                             <span class="sidebar-item-text">Important</span>
                         </div>
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/chat_black_20dp.png" alt="Chats">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/chat_black_20dp.png"
+                                alt="Chats">
                             <span class="sidebar-item-text">Chats</span>
                         </div>
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_send_black_20dp.png" alt="Scheduled">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_send_black_20dp.png"
+                                alt="Scheduled">
                             <span class="sidebar-item-text">Scheduled</span>
                         </div>
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/mail_black_20dp.png" alt="All Mail">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/mail_black_20dp.png"
+                                alt="All Mail">
                             <span class="sidebar-item-text">All Mail</span>
                         </div>
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/report_black_20dp.png" alt="Spam">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/report_black_20dp.png"
+                                alt="Spam">
                             <span class="sidebar-item-text">Spam</span>
                         </div>
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Trash">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png"
+                                alt="Trash">
                             <span class="sidebar-item-text">Trash</span>
                         </div>
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/label_black_20dp.png" alt="Categories">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/label_black_20dp.png"
+                                alt="Categories">
                             <span class="sidebar-item-text">Categories</span>
                         </div>
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/settings_black_20dp.png" alt="Manage labels">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/settings_black_20dp.png"
+                                alt="Manage labels">
                             <span class="sidebar-item-text">Manage labels</span>
                         </div>
                         <div class="sidebar-item">
-                            <img src="https://www.gstatic.com/images/icons/material/system/1x/add_black_20dp.png" alt="Create new label">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/add_black_20dp.png"
+                                alt="Create new label">
                             <span class="sidebar-item-text">Create new label</span>
                         </div>
                     </div>
@@ -172,19 +232,19 @@
                 </div>
                 <div class="toolbar-icons">
                     <!-- Default icons - always visible -->
-                    <img src="https://www.gstatic.com/images/icons/material/system/1x/refresh_black_20dp.png" 
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/refresh_black_20dp.png"
                         alt="Refresh" class="toolbar-icon default-icon">
-                    <img src="https://www.gstatic.com/images/icons/material/system/1x/more_vert_black_20dp.png" 
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/more_vert_black_20dp.png"
                         alt="More" class="toolbar-icon default-icon">
 
                     <!-- Action icons - visible only when emails selected -->
-                    <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" 
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png"
                         alt="Archive" class="toolbar-icon action-icon">
-                    <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" 
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png"
                         alt="Delete" class="toolbar-icon action-icon">
-                    <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" 
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png"
                         alt="Mark as unread" class="toolbar-icon action-icon">
-                    <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" 
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png"
                         alt="Snooze" class="toolbar-icon action-icon">
                     <!-- Add other action icons as needed -->
                 </div>
@@ -198,7 +258,7 @@
             </div>
 
             <div class="email-section">
-                
+
                 <ul class="email-list">
                     <li class="email-item unread">
                         <input type="checkbox" class="email-checkbox">
