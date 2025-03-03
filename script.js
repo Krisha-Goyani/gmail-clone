@@ -1,5 +1,6 @@
 // Utility function to toggle element visibility
 const toggleElement = (element, show = null) => {
+    if (!element) return; // Add null check
     if (show === null) {
         element.classList.toggle('active');
     } else {
@@ -7,50 +8,91 @@ const toggleElement = (element, show = null) => {
     }
 };
 
-// Handle sidebar collapse
+// Handle sidebar navigation drawer
 const menuToggle = document.getElementById('menu-toggle');
 const sidebar = document.getElementById('sidebar');
 const mainContent = document.getElementById('main-content');
 
 menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('collapsed');
-    mainContent.classList.toggle('expanded');
+    document.body.classList.toggle('nav-open');
+});
+
+// Close sidebar when clicking outside
+document.addEventListener('click', (e) => {
+    if (document.body.classList.contains('nav-open') && 
+        !e.target.closest('#sidebar') && 
+        !e.target.closest('#menu-toggle') &&
+        !e.target.closest('#main-content')) {
+        document.body.classList.remove('nav-open');
+    }
 });
 
 // Handle select dropdown
-const selectDropdownToggle = document.getElementById('select-dropdown-toggle');
-const selectDropdown = document.getElementById('select-dropdown');
-const selectAllCheckbox = document.getElementById('select-all');
-const emailCheckboxes = document.querySelectorAll('.email-checkbox');
+document.addEventListener('DOMContentLoaded', () => {
+    const selectDropdownToggle = document.getElementById('select-dropdown-toggle');
+    const selectDropdown = document.getElementById('select-dropdown');
+    const selectAllCheckbox = document.getElementById('select-all');
+    const emailCheckboxes = document.querySelectorAll('.email-checkbox');
+    const toolbarDeleteBtn = document.querySelector('.toolbar-icon[alt="Delete"]');
 
-selectDropdownToggle.addEventListener('click', () => {
-    toggleElement(selectDropdown);
-});
-
-// Close dropdowns when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.checkbox-container')) {
-        toggleElement(selectDropdown, false);
+    if (selectDropdownToggle && selectDropdown) {
+        selectDropdownToggle.addEventListener('click', () => {
+            toggleElement(selectDropdown);
+        });
     }
-    if (!e.target.closest('.more-options') && !e.target.closest('.more-dropdown')) {
-        toggleElement(document.getElementById('more-dropdown'), false);
-    }
-});
 
-// Handle select all functionality
-selectAllCheckbox.addEventListener('change', () => {
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        const moreDropdown = document.getElementById('more-dropdown');
+        
+        if (!e.target.closest('.checkbox-container') && selectDropdown) {
+            toggleElement(selectDropdown, false);
+        }
+        if (!e.target.closest('.more-options') && !e.target.closest('.more-dropdown') && moreDropdown) {
+            toggleElement(moreDropdown, false);
+        }
+    });
+
+    // Handle select all functionality
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', () => {
+            emailCheckboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+                updateEmailItemSelection(checkbox);
+            });
+            updateToolbarVisibility();
+        });
+    }
+
+    // Handle individual email selection
     emailCheckboxes.forEach(checkbox => {
-        checkbox.checked = selectAllCheckbox.checked;
-        updateEmailItemSelection(checkbox);
+        checkbox.addEventListener('change', () => {
+            updateEmailItemSelection(checkbox);
+            if (selectAllCheckbox) {
+                updateSelectAllCheckbox();
+            }
+            updateToolbarVisibility();
+        });
     });
-});
 
-// Handle individual email selection
-emailCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-        updateEmailItemSelection(checkbox);
-        updateSelectAllCheckbox();
+    // Handle toolbar delete button
+    if (toolbarDeleteBtn) {
+        toolbarDeleteBtn.addEventListener('click', deleteSelectedEmails);
+    }
+
+    // Handle individual email delete buttons
+    document.querySelectorAll('.email-actions img[alt="Delete"]').forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const emailItem = deleteBtn.closest('.email-item');
+            if (emailItem) {
+                deleteSingleEmail(emailItem);
+            }
+        });
     });
+
+    // Initialize mail counts
+    updateMailCounts();
 });
 
 function updateEmailItemSelection(checkbox) {
@@ -63,16 +105,31 @@ function updateSelectAllCheckbox() {
     const someChecked = Array.from(emailCheckboxes).some(checkbox => checkbox.checked);
     selectAllCheckbox.checked = allChecked;
     selectAllCheckbox.indeterminate = someChecked && !allChecked;
+    updateToolbarVisibility();
 }
 
 // Handle more options dropdown
-const moreOptionsToggle = document.getElementById('more-options-toggle');
+const moreOptionsToggle = document.getElementById('more-toggle');
 const moreDropdown = document.getElementById('more-dropdown');
 
-moreOptionsToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleElement(moreDropdown);
-});
+if (moreOptionsToggle && moreDropdown) {
+    moreOptionsToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Toggle active states
+        moreOptionsToggle.classList.toggle('sidebar-item-active');
+        moreDropdown.classList.toggle('sidebar-dropdown-active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#more-toggle') && !e.target.closest('#more-dropdown')) {
+            moreOptionsToggle.classList.remove('sidebar-item-active');
+            moreDropdown.classList.remove('sidebar-dropdown-active');
+        }
+    });
+}
 
 // Handle search filter modal
 const filterButton = document.getElementById('filterButton');
@@ -88,30 +145,158 @@ searchFilterModal.addEventListener('click', (e) => {
     }
 });
 
-// Add this function to handle bulk delete
-function deleteSelectedEmails() {
+// Utility function to update mail counts
+function updateMailCounts() {
+    const totalEmails = document.querySelectorAll('.email-item').length;
+    
+    // Update inbox count in mini-sidebar
+    const miniInboxCount = document.querySelector('.mini-nav-item .mini-count');
+    if (miniInboxCount) {
+        miniInboxCount.textContent = totalEmails > 0 ? totalEmails : '';
+    }
+    
+    // Update inbox count in main sidebar
+    const inboxCount = document.querySelector('.sidebar-item[data-folder="inbox"] .sidebar-count');
+    if (inboxCount) {
+        inboxCount.textContent = totalEmails > 0 ? totalEmails : '';
+    }
+
+    // Update unread count
+    const unreadEmails = document.querySelectorAll('.email-item.unread').length;
+    const unreadCount = document.querySelector('.unread-count');
+    if (unreadCount) {
+        unreadCount.textContent = unreadEmails > 0 ? unreadEmails : '';
+    }
+
+    console.log('Mail counts updated:', { total: totalEmails, unread: unreadEmails }); // Debug log
+}
+
+// Function to show notification
+function showNotification(message, duration = 5000) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button class="undo-btn">Undo</button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Show notification with animation
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Remove notification after duration
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, duration);
+}
+
+// Function to animate and remove email items
+function removeEmailItems(emailItems) {
+    return new Promise(resolve => {
+        let removedCount = 0;
+        const totalItems = emailItems.length;
+        
+        emailItems.forEach(emailItem => {
+            emailItem.style.animation = 'fadeOut 0.3s forwards';
+            setTimeout(() => {
+                emailItem.remove();
+                removedCount++;
+                if (removedCount === totalItems) {
+                    updateMailCounts(); // Update counts after each batch removal
+                    resolve();
+                }
+            }, 300);
+        });
+    });
+}
+
+// Function to delete selected emails
+async function deleteSelectedEmails() {
     const selectedEmails = document.querySelectorAll('.email-checkbox:checked');
+    const selectAllCheckbox = document.getElementById('select-all'); // Get reference here
+    
     if (selectedEmails.length === 0) return;
 
-    selectedEmails.forEach(checkbox => {
-        const emailItem = checkbox.closest('.email-item');
-        emailItem.style.animation = 'fadeOut 0.3s forwards';
-        setTimeout(() => emailItem.remove(), 300);
-    });
+    const emailItems = Array.from(selectedEmails).map(checkbox => 
+        checkbox.closest('.email-item')
+    );
 
-    // Reset select all checkbox
-    selectAllCheckbox.checked = false;
-    selectAllCheckbox.indeterminate = false;
+    // Remove emails with animation
+    await removeEmailItems(emailItems);
 
-    // Update mail counts
+    // Reset checkboxes and toolbar
+    if (selectAllCheckbox) {
+        selectAllCheckbox.checked = false;
+        selectAllCheckbox.indeterminate = false;
+    }
+    resetToolbar();
+
+    // Update counts immediately after removal
     updateMailCounts();
     
     // Show notification
     showNotification(`${selectedEmails.length} conversation${selectedEmails.length > 1 ? 's' : ''} moved to Bin`);
 }
 
-// Add event listeners for toolbar delete button
-document.querySelector('.toolbar-icons img[alt="Delete"]').addEventListener('click', deleteSelectedEmails);
+// Function to delete a single email
+async function deleteSingleEmail(emailItem) {
+    await removeEmailItems([emailItem]);
+    updateMailCounts();
+    showNotification('Conversation moved to Bin');
+}
+
+// Update keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // Only handle shortcuts when not in an input field
+    if (e.target.tagName === 'INPUT') return;
+    
+    if (e.key === '#' && e.shiftKey) {
+        // Delete selected emails
+        deleteSelectedEmails();
+    }
+});
+
+// CSS Animation for notifications
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(10px); }
+    }
+
+    .notification {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #323232;
+        color: white;
+        padding: 14px 24px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .notification.show {
+        opacity: 1;
+    }
+
+    .notification .undo-btn {
+        background: none;
+        border: none;
+        color: #8ab4f8;
+        cursor: pointer;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+`;
+document.head.appendChild(style);
 
 // Update the existing email actions handler
 document.querySelectorAll('.email-actions img').forEach(action => {
@@ -146,51 +331,45 @@ const emailList = document.querySelector('.email-list');
 const sidebarItems = document.querySelectorAll('.sidebar-item');
 let currentFolder = 'inbox';
 
-// Add function to update mail counts
-function updateMailCounts() {
-    // Count total emails
-    const totalEmails = document.querySelectorAll('.email-item').length;
-    
-    // Count starred emails
-    const starredEmails = document.querySelectorAll('.email-item[data-starred="true"]').length;
-    
-    // Update inbox count
-    const inboxCount = document.querySelector('.sidebar-item[data-folder="inbox"] .sidebar-count');
-    if (inboxCount) {
-        inboxCount.textContent = totalEmails > 0 ? totalEmails : '';
-    }
-    
-    // Update starred count
-    const starredCount = document.querySelector('.sidebar-item[data-folder="starred"] .sidebar-count');
-    if (starredCount) {
-        starredCount.textContent = starredEmails > 0 ? starredEmails : '';
-    }
-}
-
-// Update the handleStarClick function
+// Function to handle star click
 function handleStarClick(starIcon, emailItem) {
-    const isStarred = starIcon.src.includes('star_border');
-    starIcon.src = isStarred 
-        ? 'https://www.gstatic.com/images/icons/material/system/1x/star_black_20dp.png'
-        : 'https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png';
-    emailItem.dataset.starred = isStarred ? 'true' : 'false';
+    const isStarred = starIcon.src.includes('star_black_20dp');
     
-    // Update star status in localStorage
+    // Toggle star image
+    starIcon.src = isStarred 
+        ? 'https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png'
+        : 'https://www.gstatic.com/images/icons/material/system/1x/star_black_20dp.png';
+    
+    // Toggle starred class on email item
+    emailItem.classList.toggle('starred', !isStarred);
+    
+    // Store starred state
     const emailId = emailItem.dataset.emailId;
     const starredEmails = JSON.parse(localStorage.getItem('starredEmails') || '{}');
-    if (isStarred) {
+    if (!isStarred) {
         starredEmails[emailId] = true;
     } else {
         delete starredEmails[emailId];
     }
     localStorage.setItem('starredEmails', JSON.stringify(starredEmails));
     
-    // Update counts immediately
-    updateMailCounts();
+    // Update starred count
+    updateStarredCount();
+}
+
+// Function to update starred count
+function updateStarredCount() {
+    const starredCount = document.querySelectorAll('.email-item.starred').length;
+    const starredCountElement = document.querySelector('.sidebar-item[data-folder="starred"] .sidebar-count');
     
-    // Filter if in starred view
-    if (currentFolder === 'starred') {
-        filterEmails('starred');
+    if (starredCountElement) {
+        if (starredCount > 0) {
+            starredCountElement.textContent = starredCount;
+            starredCountElement.style.display = 'inline';
+        } else {
+            starredCountElement.textContent = '';
+            starredCountElement.style.display = 'none';
+        }
     }
 }
 
@@ -200,7 +379,7 @@ function filterEmails(folder) {
     emails.forEach(email => {
         switch(folder) {
             case 'starred':
-                email.style.display = email.dataset.starred === 'true' ? '' : 'none';
+                email.style.display = email.classList.contains('starred') ? '' : 'none';
                 break;
             case 'inbox':
                 email.style.display = ''; // Show all emails
@@ -239,10 +418,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const starIcon = emailItem.querySelector('.star-icon');
         if (starredEmails[emailId]) {
+            emailItem.classList.add('starred');
             starIcon.src = 'https://www.gstatic.com/images/icons/material/system/1x/star_black_20dp.png';
-            emailItem.dataset.starred = 'true';
-        } else {
-            emailItem.dataset.starred = 'false';
         }
         
         // Add click handler for star icon
@@ -413,7 +590,7 @@ function initDragAndDrop() {
                 if (folderType === 'starred') {
                     // Update star status instead of removing the email
                     const starIcon = emailElement.querySelector('.star-icon');
-                    emailElement.dataset.starred = 'true';
+                    emailElement.classList.add('starred');
                     starIcon.src = 'https://www.gstatic.com/images/icons/material/system/1x/star_black_20dp.png';
                     
                     // Update localStorage
@@ -434,26 +611,6 @@ function initDragAndDrop() {
             }
         });
     });
-}
-
-// Add notification system
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.innerHTML = `
-        <span>${message}</span>
-        <button class="undo-btn">Undo</button>
-    `;
-    
-    document.body.appendChild(notification);
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 100);
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 5000);
 }
 
 // Add search functionality
@@ -510,4 +667,21 @@ document.addEventListener('keydown', (e) => {
             showNotification('Conversation archived');
             break;
     }
-}); 
+});
+
+// Update this function to handle toolbar visibility
+function updateToolbarVisibility() {
+    const hasSelectedEmails = Array.from(emailCheckboxes).some(checkbox => checkbox.checked);
+    const toolbar = document.querySelector('.toolbar');
+    toolbar.classList.toggle('has-selected-emails', hasSelectedEmails);
+}
+
+// Function to reset toolbar
+function resetToolbar() {
+    const toolbar = document.querySelector('.toolbar');
+    if (toolbar) {
+        toolbar.classList.remove('has-selected-emails');
+    }
+    updateMailCounts(); // Update counts when resetting toolbar
+} 
+
