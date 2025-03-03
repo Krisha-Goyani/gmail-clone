@@ -171,27 +171,6 @@ function updateMailCounts() {
     console.log('Mail counts updated:', { total: totalEmails, unread: unreadEmails }); // Debug log
 }
 
-// Function to show notification
-function showNotification(message, duration = 5000) {
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.innerHTML = `
-        <span>${message}</span>
-        <button class="undo-btn">Undo</button>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Show notification with animation
-    setTimeout(() => notification.classList.add('show'), 100);
-    
-    // Remove notification after duration
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, duration);
-}
-
 // Function to animate and remove email items
 function removeEmailItems(emailItems) {
     return new Promise(resolve => {
@@ -213,9 +192,9 @@ function removeEmailItems(emailItems) {
 }
 
 // Function to delete selected emails
-async function deleteSelectedEmails() {
+function deleteSelectedEmails() {
     const selectedEmails = document.querySelectorAll('.email-checkbox:checked');
-    const selectAllCheckbox = document.getElementById('select-all'); // Get reference here
+    const selectAllCheckbox = document.getElementById('select-all');
     
     if (selectedEmails.length === 0) return;
 
@@ -224,7 +203,7 @@ async function deleteSelectedEmails() {
     );
 
     // Remove emails with animation
-    await removeEmailItems(emailItems);
+    removeEmailItems(emailItems);
 
     // Reset checkboxes and toolbar
     if (selectAllCheckbox) {
@@ -235,16 +214,12 @@ async function deleteSelectedEmails() {
 
     // Update counts immediately after removal
     updateMailCounts();
-    
-    // Show notification
-    showNotification(`${selectedEmails.length} conversation${selectedEmails.length > 1 ? 's' : ''} moved to Bin`);
 }
 
 // Function to delete a single email
 async function deleteSingleEmail(emailItem) {
     await removeEmailItems([emailItem]);
     updateMailCounts();
-    showNotification('Conversation moved to Bin');
 }
 
 // Update keyboard shortcuts
@@ -264,36 +239,6 @@ style.textContent = `
     @keyframes fadeOut {
         from { opacity: 1; transform: translateY(0); }
         to { opacity: 0; transform: translateY(10px); }
-    }
-
-    .notification {
-        position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #323232;
-        color: white;
-        padding: 14px 24px;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        z-index: 1000;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .notification.show {
-        opacity: 1;
-    }
-
-    .notification .undo-btn {
-        background: none;
-        border: none;
-        color: #8ab4f8;
-        cursor: pointer;
-        font-weight: 500;
-        text-transform: uppercase;
     }
 `;
 document.head.appendChild(style);
@@ -497,36 +442,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initDragAndDrop();
     
-    // Add hover preview functionality
+    // Remove mouseenter and mouseleave event listeners for preview
     document.querySelectorAll('.email-item').forEach(email => {
-        let previewTimeout;
-        
-        email.addEventListener('mouseenter', (e) => {
-            previewTimeout = setTimeout(() => {
-                const preview = document.createElement('div');
-                preview.className = 'email-preview';
-                preview.innerHTML = `
-                    <div class="preview-header">
-                        <div class="preview-subject">${email.querySelector('.email-subject').textContent}</div>
-                        <div class="preview-sender">${email.querySelector('.email-sender').textContent}</div>
-                        <div class="preview-time">${email.querySelector('.email-time').textContent}</div>
-                    </div>
-                    <div class="preview-body">${email.querySelector('.email-body').textContent}</div>
-                `;
-                
-                const rect = email.getBoundingClientRect();
-                preview.style.top = `${rect.top}px`;
-                preview.style.left = `${rect.right + 10}px`;
-                
-                document.body.appendChild(preview);
-            }, 500);
-        });
-        
-        email.addEventListener('mouseleave', () => {
-            clearTimeout(previewTimeout);
-            const preview = document.querySelector('.email-preview');
-            if (preview) preview.remove();
-        });
+        email.removeEventListener('mouseenter', () => {});
+        email.removeEventListener('mouseleave', () => {});
     });
 });
 
@@ -605,9 +524,6 @@ function initDragAndDrop() {
                 
                 // Update counts
                 updateMailCounts();
-                
-                // Show notification
-                showNotification(`Email ${folderType === 'starred' ? 'starred' : 'moved to ' + folder.querySelector('.sidebar-item-text').textContent}`);
             }
         });
     });
@@ -664,7 +580,6 @@ document.addEventListener('keydown', (e) => {
                 setTimeout(() => emailItem.remove(), 300);
             });
             updateMailCounts();
-            showNotification('Conversation archived');
             break;
     }
 });
