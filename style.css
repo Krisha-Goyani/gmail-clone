@@ -255,6 +255,7 @@ body.nav-open .sidebar {
     height: 32px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    font-size: 0.875rem;
 }
 
 .sidebar-item:hover {
@@ -754,7 +755,20 @@ body.nav-open .main-content {
 
 /* Filter dropdown icon */
 .filter-icon {
-    margin-left: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+.filter-icon svg {
+    height: 20px;
+    width: 20px;
+}
+
+.filter-icon:hover {    
+    background-color: #e4e5e7;
+    border-radius: 50%;
     cursor: pointer;
 }
 
@@ -1042,9 +1056,9 @@ body.nav-open .main-content {
     margin-bottom: 4px;
 }
 
-.mini-nav-item.active {
+/* .mini-nav-item.active {
     color: #0b57d0;
-}
+} */
 
 .mini-nav-item:hover {
     background-color: #e8eaed;
