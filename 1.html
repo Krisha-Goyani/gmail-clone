@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Clone</title>
+    <link rel="stylesheet" href="1.css">
+</head>
+<body>
+    <header>
+        <div class="menu-icon" id="menu-toggle">
+            <svg focusable="false" viewBox="0 0 24 24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+            </svg>
+        </div>
+        <div class="logo">
+            <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png" alt="Gmail">
+        </div>
+        <div class="search-bar">
+            <div class="search-icon">
+                <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px">
+                    <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"></path>
+                </svg>
+            </div>
+            <input type="text" placeholder="Search mail">
+            <div class="filter-icon" id="filterButton">
+                <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px">
+                    <path d="M7 10l5 5 5-5z"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="header-icons">
+            <img src="https://www.gstatic.com/images/icons/material/system/1x/help_outline_black_20dp.png" alt="Help">
+            <img src="https://www.gstatic.com/images/icons/material/system/1x/settings_black_20dp.png" alt="Settings">
+            <img src="https://www.gstatic.com/images/icons/material/system/1x/apps_black_20dp.png" alt="Apps">
+            <div class="profile-img">
+                <img src="https://lh3.googleusercontent.com/a/default-user=s32" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%;">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="compose-btn">
+                <img src="https://www.gstatic.com/images/icons/material/system/1x/create_black_20dp.png" alt="Compose">
+                <span class="compose-text">Compose</span>
+                <span class="sidebar-collapsed-text">+</span>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-item active" data-folder="inbox">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/inbox_black_20dp.png" alt="Inbox">
+                    <span class="sidebar-item-text">Inbox</span>
+                    <span class="sidebar-count"></span>
+                </div>
+                
+                <div class="sidebar-item" data-folder="starred">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Starred">
+                    <span class="sidebar-item-text">Starred</span>
+                    <span class="sidebar-count"></span>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snoozed">
+                    <span class="sidebar-item-text">Snoozed</span>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/send_black_20dp.png" alt="Sent">
+                    <span class="sidebar-item-text">Sent</span>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/insert_drive_file_black_20dp.png" alt="Drafts">
+                    <span class="sidebar-item-text">Drafts</span>
+                    <span class="sidebar-count">2</span>
+                </div>
+                <div class="more-section">
+                    <div class="sidebar-item more-toggle">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/arrow_drop_down_black_20dp.png" alt="More">
+                        <span class="sidebar-item-text">More</span>
+                    </div>
+                    
+                    <div class="more-dropdown">
+                        <div class="sidebar-item" data-folder="important">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/label_important_black_20dp.png" alt="Important">
+                            <span class="sidebar-item-text">Important</span>
+                        </div>
+                        <div class="sidebar-item" data-folder="chats">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/chat_black_20dp.png" alt="Chats">
+                            <span class="sidebar-item-text">Chats</span>
+                        </div>
+                        <div class="sidebar-item" data-folder="scheduled">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_send_black_20dp.png" alt="Scheduled">
+                            <span class="sidebar-item-text">Scheduled</span>
+                        </div>
+                        <div class="sidebar-item" data-folder="all-mail">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/mail_black_20dp.png" alt="All Mail">
+                            <span class="sidebar-item-text">All Mail</span>
+                        </div>
+                        <div class="sidebar-item" data-folder="spam">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/report_black_20dp.png" alt="Spam">
+                            <span class="sidebar-item-text">Spam</span>
+                            <span class="sidebar-count">14</span>
+                        </div>
+                        <div class="sidebar-item" data-folder="bin">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Bin">
+                            <span class="sidebar-item-text">Bin</span>
+                        </div>
+                        <div class="sidebar-item" data-folder="categories">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/label_black_20dp.png" alt="Categories">
+                            <span class="sidebar-item-text">Categories</span>
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/arrow_right_black_20dp.png" alt="Expand" class="expand-icon">
+                        </div>
+                        <div class="sidebar-item" data-folder="manage-labels">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/settings_black_20dp.png" alt="Manage labels">
+                            <span class="sidebar-item-text">Manage labels</span>
+                        </div>
+                        <div class="sidebar-item" data-folder="create-label">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/add_black_20dp.png" alt="Create new label">
+                            <span class="sidebar-item-text">Create new label</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">
+                <span>Labels</span>
+                <span class="add-label">+</span>
+            </div>
+        </div>
+
+        <div class="main-content" id="main-content">
+            <div class="toolbar">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="checkbox-main" id="select-all">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/arrow_drop_down_black_20dp.png" alt="dropdown" class="dropdown-arrow" id="select-dropdown-toggle">
+                    <div class="select-dropdown" id="select-dropdown">
+                        <div class="select-option">All</div>
+                        <div class="select-option">None</div>
+                        <div class="select-option">Read</div>
+                        <div class="select-option">Unread</div>
+                        <div class="select-option">Starred</div>
+                        <div class="select-option">Unstarred</div>
+                    </div>
+                </div>
+                <div class="toolbar-icons">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/refresh_black_20dp.png" alt="Refresh" class="toolbar-icon">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive" class="toolbar-icon">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/report_black_20dp.png" alt="Report spam" class="toolbar-icon">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete" class="toolbar-icon">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread" class="toolbar-icon">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze" class="toolbar-icon">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/drive_file_move_black_20dp.png" alt="Move to" class="toolbar-icon">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/label_black_20dp.png" alt="Labels" class="toolbar-icon">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/more_vert_black_20dp.png" alt="More" class="more-options" id="more-options-toggle">
+                    <div class="more-dropdown" id="more-dropdown">
+                        <div class="more-option">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                            <span>Snooze</span>
+                        </div>
+                        <div class="more-option">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/add_task_black_20dp.png" alt="Add to Tasks">
+                            <span>Add to Tasks</span>
+                        </div>
+                        <div class="more-option">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/label_black_20dp.png" alt="Label as">
+                            <span>Label as</span>
+                        </div>
+                        <div class="more-option">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/forward_black_20dp.png" alt="Forward as attachment">
+                            <span>Forward as attachment</span>
+                        </div>
+                        <div class="more-option">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/filter_list_black_20dp.png" alt="Filter messages like these">
+                            <span>Filter messages like these</span>
+                        </div>
+                        <div class="more-option">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/volume_off_black_20dp.png" alt="Mute">
+                            <span>Mute</span>
+                        </div>
+                        <div class="more-option">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/build_black_20dp.png" alt="Switch to advanced toolbar">
+                            <span>Switch to advanced toolbar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <span class="pagination-text"></span>
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/chevron_left_black_20dp.png" alt="Previous" class="pagination-arrow">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/chevron_right_black_20dp.png" alt="Next" class="pagination-arrow">
+                </div>
+            </div>
+
+            <div class="email-section">
+                <div class="section-header">
+                    <div class="section-title">Primary</div>
+                </div>
+                <ul class="email-list">
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">GitHub</div>
+                        <div class="email-content">
+                            <div class="email-subject">[GitHub] Please verify your device</div>
+                            <div class="email-body">- A sign in attempt requires further verification because we did not recognize your device. To complete the sign in, enter the verification code on the unrecognized device.</div>
+                        </div>
+                        <div class="email-time">11:42</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Amazon Web Services</div>
+                        <div class="email-content">
+                            <div class="email-subject">Your AWS Free Tier usage status</div>
+                            <div class="email-body">- Your AWS Free Tier usage for the current period is within the free tier limits. View your detailed AWS Free Tier usage report.</div>
+                        </div>
+                        <div class="email-time">10:15</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Stack Overflow</div>
+                        <div class="email-content">
+                            <div class="email-subject">New answers to: "How to implement dark mode in React?"</div>
+                            <div class="email-body">- 2 new answers have been posted to your question. Click here to view the responses and join the discussion.</div>
+                        </div>
+                        <div class="email-time">09:30</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Stack Overflow</div>
+                        <div class="email-content">
+                            <div class="email-subject">New answers to: "How to implement dark mode in React?"</div>
+                            <div class="email-body">- 2 new answers have been posted to your question. Click here to view the responses and join the discussion.</div>
+                        </div>
+                        <div class="email-time">09:30</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">MongoDB Newsletter</div>
+                        <div class="email-content">
+                            <div class="email-subject">🚀 MongoDB Atlas: New Features Released</div>
+                            <div class="email-body">- Discover the latest updates to MongoDB Atlas, including improved performance monitoring, enhanced security features, and new integration options.</div>
+                        </div>
+                        <div class="email-time">Yesterday</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">LinkedIn Jobs</div>
+                        <div class="email-content">
+                            <div class="email-subject">10 new jobs for 'Full Stack Developer'</div>
+                            <div class="email-body">- Based on your profile and search history, we found these new job postings that might interest you. Click to explore opportunities.</div>
+                        </div>
+                        <div class="email-time">Yesterday</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Node.js Weekly</div>
+                        <div class="email-content">
+                            <div class="email-subject">🔥 This Week in Node.js - Latest Features and Updates</div>
+                            <div class="email-body">- Node.js 20.0 released with improved performance and new JavaScript features. Read about the latest updates and community highlights.</div>
+                        </div>
+                        <div class="email-time">12:30</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">React Newsletter</div>
+                        <div class="email-content">
+                            <div class="email-subject">React 19 Beta: What's New and Exciting</div>
+                            <div class="email-body">- Explore the latest features in React 19 Beta, including improved server components and automatic memory management.</div>
+                        </div>
+                        <div class="email-time">11:45</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Google Cloud</div>
+                        <div class="email-content">
+                            <div class="email-subject">Your $300 Credit is About to Expire</div>
+                            <div class="email-body">- Don't forget to use your remaining Google Cloud credits before they expire. Check your balance and explore our services.</div>
+                        </div>
+                        <div class="email-time">10:15</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Microsoft Azure</div>
+                        <div class="email-content">
+                            <div class="email-subject">Your Azure subscription: Monthly usage report</div>
+                            <div class="email-body">- Your detailed usage report for the past month is now available. Review your resource consumption and costs.</div>
+                        </div>
+                        <div class="email-time">09:20</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">React Newsletter</div>
+                        <div class="email-content">
+                            <div class="email-subject">React 19 Beta: What's New and Exciting</div>
+                            <div class="email-body">- Explore the latest features in React 19 Beta, including improved server components and automatic memory management.</div>
+                        </div>
+                        <div class="email-time">11:45</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Docker</div>
+                        <div class="email-content">
+                            <div class="email-subject">Security Alert: Update your Docker Desktop</div>
+                            <div class="email-body">- Important security update available for Docker Desktop. Please update to version 4.25.0 to address vulnerabilities.</div>
+                        </div>
+                        <div class="email-time">08:45</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Udemy</div>
+                        <div class="email-content">
+                            <div class="email-subject">Flash Sale: 90% off on top tech courses!</div>
+                            <div class="email-body">- Last chance to grab our best-selling courses on Web Development, AI, and Cloud Computing at incredible discounts.</div>
+                        </div>
+                        <div class="email-time">Yesterday</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Vue.js News</div>
+                        <div class="email-content">
+                            <div class="email-subject">Vue 3.4 Released: Composition API Improvements</div>
+                            <div class="email-body">- Check out the latest Vue.js release with enhanced performance and new composition API features.</div>
+                        </div>
+                        <div class="email-time">Yesterday</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Kubernetes</div>
+                        <div class="email-content">
+                            <div class="email-subject">Kubernetes Community Meeting</div>
+                            <div class="email-body">- Join us for the monthly community meeting to discuss upcoming features and improvements in K8s 1.29.</div>
+                        </div>
+                        <div class="email-time">Feb 27</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">LeetCode</div>
+                        <div class="email-content">
+                            <div class="email-subject">Weekly Contest Results</div>
+                            <div class="email-body">- Congratulations! You ranked in the top 10% in this week's contest. View detailed analysis of your solutions.</div>
+                        </div>
+                        <div class="email-time">Feb 26</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Digital Ocean</div>
+                        <div class="email-content">
+                            <div class="email-subject">Your Droplet Performance Report</div>
+                            <div class="email-body">- Monthly performance metrics for your droplets are now available. CPU usage trending higher than usual.</div>
+                        </div>
+                        <div class="email-time">Feb 26</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">React Newsletter</div>
+                        <div class="email-content">
+                            <div class="email-subject">React 19 Beta: What's New and Exciting</div>
+                            <div class="email-body">- Explore the latest features in React 19 Beta, including improved server components and automatic memory management.</div>
+                        </div>
+                        <div class="email-time">11:45</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Next.js Conference</div>
+                        <div class="email-content">
+                            <div class="email-subject">Early Bird Tickets Now Available!</div>
+                            <div class="email-body">- Secure your spot at the biggest Next.js conference of the year. Special pricing ends in 48 hours.</div>
+                        </div>
+                        <div class="email-time">Feb 25</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">npm Security</div>
+                        <div class="email-content">
+                            <div class="email-subject">Security Advisory: Critical Updates Required</div>
+                            <div class="email-body">- Multiple high-severity vulnerabilities found in your dependencies. Update required for express, lodash packages.</div>
+                        </div>
+                        <div class="email-time">Feb 25</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Jenkins CI</div>
+                        <div class="email-content">
+                            <div class="email-subject">Build Failed: main-production-deploy</div>
+                            <div class="email-body">- Build #1234 failed due to test failures in the authentication module. Check the build logs for details.</div>
+                        </div>
+                        <div class="email-time">Feb 24</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">DataDog</div>
+                        <div class="email-content">
+                            <div class="email-subject">🚨 High Memory Usage Alert</div>
+                            <div class="email-body">- Memory usage exceeded 85% threshold on production-db-1. Consider scaling resources to prevent performance issues.</div>
+                        </div>
+                        <div class="email-time">Feb 24</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">AWS Certification</div>
+                        <div class="email-content">
+                            <div class="email-subject">Your AWS Solutions Architect Exam Results</div>
+                            <div class="email-body">- Congratulations! You have successfully passed the AWS Solutions Architect Professional certification exam.</div>
+                        </div>
+                        <div class="email-time">Feb 23</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item unread">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">Slack</div>
+                        <div class="email-content">
+                            <div class="email-subject">New Direct Message from Team Lead</div>
+                            <div class="email-body">- Sarah has sent you a message about the upcoming code review session. Click to respond in Slack.</div>
+                        </div>
+                        <div class="email-time">Feb 23</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                    <li class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png" alt="Star" class="star-icon">
+                        <div class="email-sender">CircleCI</div>
+                        <div class="email-content">
+                            <div class="email-subject">Pipeline Status: feature/user-auth</div>
+                            <div class="email-body">- All tests passed successfully. The branch is ready to be merged into main. View the detailed report.</div>
+                        </div>
+                        <div class="email-time">Feb 22</div>
+                        <div class="email-actions">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" alt="Archive">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/delete_black_20dp.png" alt="Delete">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/markunread_black_20dp.png" alt="Mark as unread">
+                            <img src="https://www.gstatic.com/images/icons/material/system/1x/schedule_black_20dp.png" alt="Snooze">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Filter Modal -->
+    <div class="search-filter-modal" id="searchFilterModal">
+        <div class="search-filter-content">
+            <div class="filter-row">
+                <div class="filter-label">From:</div>
+                <input type="text" class="filter-input" placeholder="Enter sender's email">
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">To:</div>
+                <input type="text" class="filter-input" placeholder="Enter recipient's email">
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">Subject:</div>
+                <input type="text" class="filter-input" placeholder="Enter subject">
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">Has words:</div>
+                <input type="text" class="filter-input" placeholder="Enter keywords">
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">Doesn't have:</div>
+                <input type="text" class="filter-input" placeholder="Enter excluded words">
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">Size:</div>
+                <select class="filter-select">
+                    <option value="">Any size</option>
+                    <option value="larger">Larger than</option>
+                    <option value="smaller">Smaller than</option>
+                </select>
+                <input type="number" class="filter-input" placeholder="Size in MB">
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">Date within:</div>
+                <select class="filter-select">
+                    <option value="1">1 day</option>
+                    <option value="7">1 week</option>
+                    <option value="30">1 month</option>
+                    <option value="90">3 months</option>
+                    <option value="365">1 year</option>
+                </select>
+            </div>
+            <div class="filter-row">
+                <input type="checkbox" class="filter-checkbox" id="hasAttachment">
+                <label for="hasAttachment">Has attachment</label>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-button create-filter-button">Create filter</button>
+                <button class="filter-button search-button">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this right before closing body tag -->
+    <div class="side-apps-panel collapsed">
+        <div class="side-app-icon">
+            <img src="https://www.gstatic.com/companion/icon_assets/calendar_2020q4_2x.png" alt="Calendar">
+        </div>
+        <div class="side-app-icon">
+            <img src="https://www.gstatic.com/companion/icon_assets/keep_2020q4v3_2x.png" alt="Keep">
+        </div>
+        <div class="side-app-icon">
+            <img src="https://www.gstatic.com/companion/icon_assets/tasks2_2x.png" alt="Tasks">
+        </div>
+        <div class="side-app-icon">
+            <img src="https://www.gstatic.com/companion/icon_assets/contacts_2x.png" alt="Contacts">
+        </div>
+        <div class="side-app-divider"></div>
+        <div class="side-app-icon">
+            <img src="https://www.gstatic.com/images/icons/material/system_gm/1x/add_black_20dp.png" alt="Add">
+        </div>
+    </div>
+
+    <div class="side-panel-toggle collapsed">
+        <img src="https://www.gstatic.com/images/icons/material/system/1x/chevron_left_black_24dp.png" alt="Toggle Side Panel">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
