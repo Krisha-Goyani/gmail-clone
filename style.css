@@ -69,8 +69,8 @@ header {
     background-color: #e9eef6;
     border-radius: 24px;
     margin-left: 150px;
-    padding: 8px 16px;
-    width: 50%;
+    padding: 6px 16px;
+    width: 720px;
     max-width: 720px;
 }
 
@@ -93,8 +93,8 @@ header {
     display: flex;
     margin-left: auto;
     align-items: center;
-    padding-right: 20px;
-    gap: 8px;
+    padding-right: 2px;
+    gap: 6px;
 }
 
 .header-icons-img {
@@ -112,7 +112,7 @@ header {
     padding: 4px;
     margin-right: 16px;
     cursor: pointer;
-    height: 40px;
+    height: 50px;
     width: 134px;
     border: 1px solid #dadce0;
     justify-content: space-around;
@@ -142,10 +142,10 @@ header {
 .active-status {
     display: flex;
     align-items: center;
-    padding: 16px 16px;
+    padding: 6px 5px 6px 9px;
     background-color: #e9eef6;
     border-radius: 24px;
-    margin-right: 16px;
+    margin-right: 3px;
     cursor: pointer;
     gap: 2px; /* Space between elements */
     height: 50px;
@@ -154,9 +154,9 @@ header {
 
 .active-status::before {
     content: "";
-    width: 8px;
-    height: 8px;
-    background-color: #34a853;
+    width: 11px;
+    height: 11px;
+    background-color: #107c2dc2;
     border-radius: 50%;
     margin-right: 6px;
 }
@@ -187,12 +187,13 @@ header {
     left: 70px; /* Always position after mini-sidebar */
     top: 64px;
     height: calc(100vh - 64px);
-    width: 280px;
+    width: 256px;
     background-color: #fff;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     z-index: 95;
     box-shadow: none;
+    padding-left: 12px;
 }
 
 /* When nav is open */
@@ -254,7 +255,7 @@ body.nav-open .sidebar {
     align-items: center;
     border-radius: 16px;
     margin-right: 12px;
-    padding: 0 12px 0 24px;
+    padding: 0 12px 0 16px;
     height: 32px;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -344,13 +345,16 @@ body.nav-open .main-content {
 }
 
 .toolbar {
+    position: fixed;
+    z-index: 1;
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: 8px 16px 8px 25px;    ;
     background-color: #fff;
     width: 100%;
     box-sizing: border-box;
     min-width: 0; /* Allow shrinking */
+    box-shadow: inset 0 -1px 0 0 transparent
 }
 
 .checkbox-container {
@@ -426,8 +430,8 @@ body.nav-open .main-content {
 }
 
 .toolbar-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     margin-right: 16px;
     cursor: pointer;
     opacity: 0.7;
@@ -486,6 +490,7 @@ body.nav-open .main-content {
     color: #5f6368;
     display: flex;
     align-items: center; /* Vertically center items */
+    margin-right: 120px;
 }
 
 .pagination-text {
@@ -513,7 +518,7 @@ body.nav-open .main-content {
 /* Email List */
 .email-section {
     background-color: #fff;
-    margin: 16px 16px 16px 5px;
+    margin: 16px;
     border-radius: 8px;
     max-width: 100%;
     overflow-x: hidden;
@@ -523,8 +528,11 @@ body.nav-open .main-content {
     display: flex;
     align-items: center;
     padding: 8px 16px;
-    border-bottom: 1px solid #e0e0e0;
+    color: #5f6368;
+    font-size: 13px;
+    font-weight: 500;
 }
+        
 
 .section-title {
     font-size: 16px;
@@ -534,14 +542,14 @@ body.nav-open .main-content {
 
 .email-list {
     list-style: none;
-    padding: 0;
+    padding-top: 25px;
     margin: 0;
 }
 
 .email-item {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: 8px 16px 8px 11px;
     border-bottom: 1px solid #eceff1;
     position: relative;
     cursor: pointer;
@@ -805,7 +813,7 @@ body.nav-open .main-content {
 }
 
 .more-dropdown .sidebar-item {
-    padding-left: 30px;  /* Increased padding for nested items */
+    padding-left: 15px;  /* Increased padding for nested items */
 }
 
 .more-dropdown .sidebar-item:hover {
@@ -1097,8 +1105,8 @@ html, body {
     width: 100%;
 }
 .sidebar-item-active {
-    background-color: #e8eaed;
-    border-radius: 0 16px 16px 0;
+    background-color: #d3e3fd;
+    border-radius: 16px;
 }
 
 .sidebar-dropdown {
@@ -1152,16 +1160,15 @@ html, body {
     left: 100%;
     top: -78px;
     width: 245px;
-    height: 500px;
+    height: 700px;
     background: white;
     box-shadow: 0 1px 3px 0 rgb(60 64 67 / 15%),
                 0 1px 3px 0 rgb(60 64 67 / 30%),
                 0 4px 8px 3px rgb(60 64 67 / 15%);
     border-radius: 15px;
-   
     margin-left: 4px;
     font-family: 'Google Sans', Roboto, Arial, sans-serif;
-    z-index: 1000;
+    z-index: 9999; /* Increased z-index to ensure it appears above other elements */
 }
 
 .chat-container:hover .chat-sidebar {
@@ -1175,41 +1182,39 @@ html, body {
 .new-chat {
     display: flex;
     align-items: center;
-    padding: 12px 24px;
+    padding: 24px 24px;
     cursor: pointer;
     color: #3c4043;
     font-size: 14px;
+    font-weight: 600;
     background: #eef3fc;
     height: 70px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
 
-.new-chat img {
-    width: 20px;
-    height: 20px;
-    margin-right: 16px;
+.new-chat i{
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    display: flex;           /* Added to enable centering */
+    align-items: center;     /* Vertically centers the content */
+    justify-content: center; /
 }
 
 .chat-section {
-    padding: 4px 0;
-    border-bottom: 1px solid #e8eaed;
+    padding: 6px 4px;
 }
-
-.section-header {
-    padding: 12px 24px;
-    color: #5f6368;
-    font-size: 13px;
-    font-weight: 500;
-}
-
 .chat-item {
     display: flex;
     align-items: center;
-    padding: 8px 24px;
+    padding: 5px 24px;
     cursor: pointer;
     color: #3c4043;
     font-size: 14px;
+}
+.chat-item span {
+    font-size: 0.875rem;
 }
 
 .chat-item img {
@@ -1219,26 +1224,30 @@ html, body {
 }
 
 .app-label {
-    font-size: 12px;
+    font-size: 5px;
     color: #5f6368;
     margin-left: auto;
-    padding: 2px 6px;
-    background-color: #f1f3f4;
+    padding: 1px 2px;
+    background-color: #b3b3b360;
     border-radius: 4px;
 }
-
+.section-arrow{
+    width: 10px;
+    height: 10px;
+}
 .spaces-message {
     padding: 16px 24px;
     color: #5f6368;
     font-size: 14px;
     text-align: center;
+    line-height: 1.5;
 }
 
 .create-space-link {
     color: #1a73e8;
     text-decoration: none;
     display: block;
-    margin-top: 8px;
+    margin-top: 2px;
     font-size: 14px;
 }
 
@@ -1274,8 +1283,8 @@ html, body {
     object-fit: contain;
 }
 
-.chat-item i, 
-.new-chat i {
+
+.regular-icon {
     font-size: 16px;
     width: 20px;
     height: 20px;
@@ -1289,7 +1298,7 @@ html, body {
 .section-arrow {
     font-size: 12px;
     color: #5f6368;
-    margin-right: 4px;
+    margin-right: 16px;
 }
 
 .chat-item.active {
